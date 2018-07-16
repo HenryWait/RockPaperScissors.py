@@ -1,2 +1,2 @@
 # RockPaperScissors.py
-A simple Rock paper scirros game written in python.
+A simple Rock paper scissors game written in python.
