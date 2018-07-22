@@ -59,7 +59,7 @@ def move():
         player = input("Rock = 1\nPaper = 2\nScissors = 3\nMake a move: ")
         try:
             player = int(player)
-            return Throw(player)
+            return Throw(player)  # Will throw a ValueError if not a valid choice
         except ValueError:
             pass
         print("Choose 1, 2 or 3.")
@@ -72,6 +72,7 @@ def play(player, computer):
     time.sleep(DELAY)
     print("3...")
     time.sleep(0.5 * DELAY)
+
     print("Computer threw {0}!".format(computer.name))
     result = player.vs(computer)
     if result == 0:
@@ -85,11 +86,11 @@ def play(player, computer):
 
 
 def play_again():
-        answer = input("Would you like to play again? y/n: ")
-        if answer.lower() in ("y", "yes"):
-            return answer
-        else:
-            print("Thank you for palying.")
+    answer = input("Would you like to play again? y/n: ")
+    if answer.lower() in ("y", "yes"):
+        return answer
+    else:
+        print("Thank you for palying.")
 
 
 def scores():
