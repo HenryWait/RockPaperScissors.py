@@ -2,17 +2,16 @@
 
 # Rock, Paper, Scissor
 
-# Extra functions needed
 import random
 import time
 
-rock = 1
-paper = 2
-scissors = 3
+ROCK = 1
+PAPER = 2
+SCISSORS = 3
 
 # Rules
-names = {rock: "Rock", paper: "Paper", scissors: "Scissors"}
-rules = {rock: scissors, paper: rock, scissors: paper}
+NAMES = {ROCK: "Rock", PAPER: "Paper", SCISSORS: "Scissors"}
+RULES = {ROCK: SCISSORS, PAPER: ROCK, SCISSORS: PAPER}
 
 # For keeping score
 player_score = 0
@@ -53,12 +52,12 @@ def result(player, computer):
     time.sleep(1)
     print("3...")
     time.sleep(0.5)
-    print("Computer threw {0}!".format(names[computer]))
+    print("Computer threw {0}!".format(NAMES[computer]))
     global player_score, computer_score
     if player == computer:
         print("Tie.")
     else:
-        if rules[player] == computer:
+        if RULES[player] == computer:
             print("You win!")
             player_score += 1
         else:
