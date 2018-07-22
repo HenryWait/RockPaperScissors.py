@@ -2,16 +2,28 @@
 
 # Rock, Paper, Scissor
 
+from enum import Enum
 import random
 import time
 
-ROCK = 1
-PAPER = 2
-SCISSORS = 3
 
-# Rules
-NAMES = {ROCK: "Rock", PAPER: "Paper", SCISSORS: "Scissors"}
-RULES = {ROCK: SCISSORS, PAPER: ROCK, SCISSORS: PAPER}
+class Throw(Enum):
+    Rock = 1
+    Paper = 2
+    Scissors = 3
+
+    def vs(self, throw):
+        RULES = {self.Rock: self.Scissors,
+                 self.Paper: self.Rock,
+                 self.Scissors: self.Paper
+                 }
+        if self == throw:
+            return 0  # Tie
+        if RULES[self] == throw:
+            return 1  # Player wins
+        else:
+            return -1  # Computer wins
+
 
 # For keeping score
 SCORE = {"player": 0,
@@ -28,8 +40,8 @@ def start():
 
 def game():
     player = move()
-    computer = random.randint(1, 3)
-    result(player, computer)
+    computer = Throw(random.randint(1, 3))
+    play(player, computer)
     return play_again()
 
 
@@ -39,30 +51,29 @@ def move():
         player = input("Rock = 1\nPaper = 2\nScissors = 3\nMake a move: ")
         try:
             player = int(player)
-            if player in (1, 2, 3):
-                return player
+            return Throw(player)
         except ValueError:
             pass
         print("Choose 1, 2 or 3.")
 
 
-def result(player, computer):
+def play(player, computer):
     print("1...")
     time.sleep(1)
     print("2...")
     time.sleep(1)
     print("3...")
     time.sleep(0.5)
-    print("Computer threw {0}!".format(NAMES[computer]))
-    if player == computer:
+    print("Computer threw {0}!".format(computer.name))
+    result = player.vs(computer)
+    if result == 0:
         print("Tie.")
+    elif result == 1:
+        print("You win!")
+        SCORE["player"] += 1
     else:
-        if RULES[player] == computer:
-            print("You win!")
-            SCORE["player"] += 1
-        else:
-            print("Computer wins!")
-            SCORE["computer"] += 1
+        print("Computer wins!")
+        SCORE["computer"] += 1
 
 
 def play_again():
