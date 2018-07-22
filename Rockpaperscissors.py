@@ -14,8 +14,9 @@ NAMES = {ROCK: "Rock", PAPER: "Paper", SCISSORS: "Scissors"}
 RULES = {ROCK: SCISSORS, PAPER: ROCK, SCISSORS: PAPER}
 
 # For keeping score
-player_score = 0
-computer_score = 0
+SCORE = {"player": 0,
+         "computer": 0,
+         }
 
 
 def start():
@@ -53,16 +54,15 @@ def result(player, computer):
     print("3...")
     time.sleep(0.5)
     print("Computer threw {0}!".format(NAMES[computer]))
-    global player_score, computer_score
     if player == computer:
         print("Tie.")
     else:
         if RULES[player] == computer:
             print("You win!")
-            player_score += 1
+            SCORE["player"] += 1
         else:
             print("Computer wins!")
-            computer_score += 1
+            SCORE["computer"] += 1
 
 
 def play_again():
@@ -74,10 +74,9 @@ def play_again():
 
 
 def scores():
-    global player_score, computer_score
     print("HIGH SCORES")
-    print("Player: ", player_score)
-    print("Computer: ", computer_score)
+    print("Player: ", SCORE["player"])
+    print("Computer: ", SCORE["computer"])
 
 
 if __name__ == '__main__':
