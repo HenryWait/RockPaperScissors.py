@@ -82,7 +82,7 @@ def play(player, computer):
 
 def play_again():
         answer = input("Would you like to play again? y/n: ")
-        if answer in ("y", "Y", "Yes", "yes"):
+        if answer.lower() in ("y", "yes"):
             return answer
         else:
             print("Thank you for palying.")
