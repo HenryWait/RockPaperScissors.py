@@ -7,6 +7,9 @@ import random
 import time
 
 
+DELAY = 1
+
+
 class Throw(Enum):
     Rock = 1
     Paper = 2
@@ -50,6 +53,7 @@ def game():
 
 
 def move():
+    # Loop until we get valid input
     while True:
         print()
         player = input("Rock = 1\nPaper = 2\nScissors = 3\nMake a move: ")
@@ -63,11 +67,11 @@ def move():
 
 def play(player, computer):
     print("1...")
-    time.sleep(1)
+    time.sleep(DELAY)
     print("2...")
-    time.sleep(1)
+    time.sleep(DELAY)
     print("3...")
-    time.sleep(0.5)
+    time.sleep(0.5 * DELAY)
     print("Computer threw {0}!".format(computer.name))
     result = player.vs(computer)
     if result == 0:
