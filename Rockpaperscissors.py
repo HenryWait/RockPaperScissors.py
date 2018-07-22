@@ -24,6 +24,10 @@ class Throw(Enum):
         else:
             return -1  # Computer wins
 
+    @staticmethod
+    def random():
+        return Throw(random.randint(1,3))
+
 
 # For keeping score
 SCORE = {"player": 0,
@@ -40,7 +44,7 @@ def start():
 
 def game():
     player = move()
-    computer = Throw(random.randint(1, 3))
+    computer = Throw.random()
     play(player, computer)
     return play_again()
 
