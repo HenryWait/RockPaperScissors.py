@@ -6,31 +6,51 @@ from enum import Enum
 import random
 import time
 
-
 DELAY = 1
 
 
-class Throw(Enum):
-    Rock = 1
-    Paper = 2
-    Scissors = 3
+class RPSBase(Enum):
+    def __new__(cls, value):
+        int_value = len(cls.__members__) + 1
+        obj = object.__new__(cls)
+        obj._value_ = int_value
+        obj._beats_ = value
+        return obj
 
     def vs(self, throw):
-        RULES = {self.Rock: self.Scissors,
-                 self.Paper: self.Rock,
-                 self.Scissors: self.Paper
-                 }
         if self == throw:
             return 0  # Tie
-        if RULES[self] == throw:
+        if throw.name in self._beats_:
             return 1  # Player wins
         else:
-            return -1  # Computer wins
+            return -1  # Opponent wins
 
     @staticmethod
     def random():
-        return Throw(random.randint(1,3))
+        return Throw(random.randint(1, len(Throw)))
 
+    @staticmethod
+    def options():
+        return '\n'.join(['{0} = {1}'.format(t.name, t.value) for t in Throw])
+
+
+class ClassicRPS(RPSBase):
+    # Value = { Values it beats }
+    Rock = {'Scissors'}
+    Paper = {'Rock'}
+    Scissors = {'Paper'}
+
+
+class FiveRPS(RPSBase):
+    # Value = { Values it beats }
+    Rock = {'Scissors', 'Lizard'}
+    Paper = {'Rock', 'Spock'}
+    Scissors = {'Paper', 'Lizard'}
+    Spock = {'Scossors', 'Rock'}
+    Lizard = {'Spock', 'Paper'}
+
+
+Throw = ClassicRPS
 
 # For keeping score
 SCORE = {"player": 0,
@@ -56,10 +76,11 @@ def move():
     # Loop until we get valid input
     while True:
         print()
-        player = input("Rock = 1\nPaper = 2\nScissors = 3\nMake a move: ")
+        player = input(Throw.options() + "\n")
         try:
             player = int(player)
-            return Throw(player)  # Will throw a ValueError if not a valid choice
+            # Will throw a ValueError if not a valid choice
+            return Throw(player)
         except ValueError:
             pass
         print("Choose 1, 2 or 3.")
