@@ -6,7 +6,7 @@ from enum import Enum
 import random
 import time
 
-
+#Delay when game is played, can be reduced for testing
 DELAY = 1
 
 
@@ -28,6 +28,7 @@ class Throw(Enum):
             return -1  # Computer wins
 
     @staticmethod
+# function for the computers random selection of R, P or S
     def random():
         return Throw(random.randint(1,3))
 
@@ -66,6 +67,7 @@ def move():
 
 
 def play(player, computer):
+#delay and 1...2...3... simulates the 1,2,3 in a real game of RPS
     print("1...")
     time.sleep(DELAY)
     print("2...")
@@ -84,15 +86,15 @@ def play(player, computer):
         print("Computer wins!")
         SCORE["computer"] += 1
 
-
+# function to ask the player if they would like to play again
 def play_again():
     answer = input("Would you like to play again? y/n: ")
-    if answer.lower() in ("y", "yes"):
+    if answer.lower() in ("y", "yes"): 
         return answer
     else:
         print("Thank you for palying.")
 
-
+# function for printing high scores when the player chooses to not play again
 def scores():
     print("HIGH SCORES")
     print("Player: ", SCORE["player"])
